@@ -1,5 +1,9 @@
 package auca.example.smartspend.model;
 
-public class SpendStatus {
+public enum SpendStatus {
 
+    SUBMITTED,
+    REVIEWED,
+    APPROVED,
+    REJECTED
 }
