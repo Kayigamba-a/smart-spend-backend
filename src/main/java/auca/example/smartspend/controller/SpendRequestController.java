@@ -72,6 +72,15 @@ public class SpendRequestController {
         return new ResponseEntity<>(spendRequests, HttpStatus.OK);
     }
 
+    @GetMapping("/stats/by-status")
+    public ResponseEntity<List<Object[]>> getStatusStatistics() {
+
+        return new ResponseEntity<>(
+            spendRequestService.getStatusStatistics(),
+            HttpStatus.OK
+        );
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getSpendRequestById(@PathVariable UUID id) {
 

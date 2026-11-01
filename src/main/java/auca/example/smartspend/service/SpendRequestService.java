@@ -124,4 +124,9 @@ public class SpendRequestService {
         spendRequestRepository.save(existingSpendRequest);
         return "Spend request status updated successfully";
     }
+
+    public List<Object[]> getStatusStatistics() {
+
+        return spendRequestRepository.countGroupedByStatus();
+    }
 }
