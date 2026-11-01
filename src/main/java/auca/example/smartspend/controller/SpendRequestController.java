@@ -1,5 +1,6 @@
 package auca.example.smartspend.controller;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -48,6 +49,20 @@ public class SpendRequestController {
 
         List<SpendRequest> spendRequests =
             spendRequestService.getSpendRequestsByStatus(status);
+
+        return new ResponseEntity<>(spendRequests, HttpStatus.OK);
+    }
+
+    @GetMapping("/between")
+    public ResponseEntity<List<SpendRequest>> getSpendRequestsBetween(
+            @RequestParam String start,
+            @RequestParam String end) {
+
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+
+        List<SpendRequest> spendRequests =
+            spendRequestService.getSpendRequestsBetween(startDate, endDate);
 
         return new ResponseEntity<>(spendRequests, HttpStatus.OK);
     }

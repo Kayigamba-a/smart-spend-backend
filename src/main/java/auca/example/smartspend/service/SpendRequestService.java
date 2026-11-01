@@ -1,5 +1,6 @@
 package auca.example.smartspend.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -64,5 +65,10 @@ public class SpendRequestService {
     public List<SpendRequest> getSpendRequestsByStatus(SpendStatus status) {
 
         return spendRequestRepository.findByStatusOrderByRequestDateAsc(status);
+    }
+
+    public List<SpendRequest> getSpendRequestsBetween(LocalDate start, LocalDate end) {
+
+        return spendRequestRepository.findByRequestDateBetweenOrderByRequestDateAsc(start, end);
     }
 }
