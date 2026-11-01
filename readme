@@ -11,3 +11,22 @@ Postgrsql
 -Maven
 -Postgresql
 -postman
+
+## Database
+Create a database name `smartspend_db`.
+`src/main/resources/application.properties`
+```properties
+spring.datasource.url=jdbc:postgresql://localhost/5433/smartspend_db
+spring.datasource.username=postgres
+spring.datasource.password==your password
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+server.port=8083
+
+##Run the Api
+```bash
+./mvnm spring-boot:run
+
+The Api starts at  `http://localhostt:8082'
+##Test
+Import `smart-spend-midterm.postman_collection.json` from the project root into Postman.Requests are named by requirements ID(B1,A2,C4,D4 ETC)
