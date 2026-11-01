@@ -1,0 +1,494 @@
+{
+  "info": {
+    "_postman_id": "7064fef8-da74-4521-a71a-4ba2bdd54725",
+    "name": "SmartSpend",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "57840062",
+    "_collection_link": "https://go.postman.co/collection/57840062-7064fef8-da74-4521-a71a-4ba2bdd54725?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "A2 CRUD",
+      "item": [
+        {
+          "name": "Expense saving",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"name\": \"Training\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/expense-types/save",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "expense-types",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "COST CENTRES",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{ \"centreNumber\": 100, \"name\": \"Finance\" }\r\n{ \"centreNumber\": 200, \"name\": \"Operations\" }\r\n{ \"centreNumber\": 300, \"name\": \"Academics\" }",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:8082/api/cost-centres/save",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "cost-centres",
+                "save"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Employee saving",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get expense types",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/expense-types/all",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "expense-types",
+                "all"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get cost centres",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get finance officers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get spend requests",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "B1",
+      "item": [
+        {
+          "name": "employee by lastname",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/employees/by-last-name?lastName=uwase",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "employees",
+                "by-last-name"
+              ],
+              "query": [
+                {
+                  "key": "lastName",
+                  "value": "uwase"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "non exists employee",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/employees/by-last-name?lastName=zzz",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "employees",
+                "by-last-name"
+              ],
+              "query": [
+                {
+                  "key": "lastName",
+                  "value": "zzz"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "B2",
+      "item": [
+        {
+          "name": "Filter spend requests by SUBMITTED",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "B3",
+      "item": [
+        {
+          "name": "Spend requests between 1 and 3 Nov",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/spend-requests/between?start=2026-11-01&end=2026-11-03",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "spend-requests",
+                "between"
+              ],
+              "query": [
+                {
+                  "key": "start",
+                  "value": "2026-11-01"
+                },
+                {
+                  "key": "end",
+                  "value": "2026-11-03"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "C1",
+      "item": [
+        {
+          "name": "Officers by expense type travel",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "C2",
+      "item": [
+        {
+          "name": "Free costcentres",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8082/api/cost-centres/free",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8082",
+              "path": [
+                "api",
+                "cost-centres",
+                "free"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "C3",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "C4",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/employees/of-finance-officer/255b5672-3190-4a0f-b3dc-c6a21d519b1b",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "employees",
+            "of-finance-officer",
+            "255b5672-3190-4a0f-b3dc-c6a21d519b1b"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D1",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"requestDate\": \"2026-12-01\",\r\n  \"status\": \"APPROVED\",\r\n  \"purpose\": \"D1 save check\",\r\n  \"requestedAmount\": 15000,\r\n  \"employee\": { \"id\": \"b6f511d3-c12a-4de0-8bbc-c34aa67337eb\" },\r\n  \"financeOfficer\": { \"id\": \"255b5672-3190-4a0f-b3dc-c6a21d519b1b\" }\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/spend-requests/save",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "spend-requests",
+            "save"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D2",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/spend-requests/b9309e45-bb0a-4939-acce-59e210c519e9/status?status=REVIEWED",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "spend-requests",
+            "b9309e45-bb0a-4939-acce-59e210c519e9",
+            "status"
+          ],
+          "query": [
+            {
+              "key": "status",
+              "value": "REVIEWED"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D3",
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/finance-officers/a9473455-5bfa-426a-bb06-f6bec2a45538/expense-types/3eada521-308f-4a99-8b0e-1fee504d88db",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "finance-officers",
+            "a9473455-5bfa-426a-bb06-f6bec2a45538",
+            "expense-types",
+            "3eada521-308f-4a99-8b0e-1fee504d88db"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "D4",
+      "request": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8082/api/finance-officers/255b5672-3190-4a0f-b3dc-c6a21d519b1b/cost-centre?centreNumber=400",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "finance-officers",
+            "255b5672-3190-4a0f-b3dc-c6a21d519b1b",
+            "cost-centre"
+          ],
+          "query": [
+            {
+              "key": "centreNumber",
+              "value": "400"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "E1",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"vendor\": \"Volcano Express\",\r\n  \"description\": \"Bus ticket Kigali to Musanze\",\r\n  \"amount\": 3500\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:8082/api/receipts/save?spendRequestId=e5837e96-f8a1-4922-96fa-f19bf9021670",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "8082",
+          "path": [
+            "api",
+            "receipts",
+            "save"
+          ],
+          "query": [
+            {
+              "key": "spendRequestId",
+              "value": "e5837e96-f8a1-4922-96fa-f19bf9021670"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "E2",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "E3",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": ""
+        }
+      },
+      "response": []
+    }
+  ]
+}

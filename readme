@@ -1,0 +1,13 @@
+
+**Student:** Umurerwa kayigamba Iris
+**Student Id:** 27953
+**Project:**SmartSpend
+**Course:**INSY 832 Web Technology 
+
+Spring boot rest api for spend requests,finance officers,cost centres,expense type,employees and receipts.
+Postgrsql
+## Prerequisites
+-java 21
+-Maven
+-Postgresql
+-postman
