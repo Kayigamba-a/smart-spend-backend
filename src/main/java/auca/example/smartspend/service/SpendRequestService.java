@@ -55,7 +55,6 @@ public class SpendRequestService {
         if (existingSpendRequest != null) {
 
             existingSpendRequest.setRequestDate(spendRequest.getRequestDate());
-            existingSpendRequest.setStatus(spendRequest.getStatus());
             existingSpendRequest.setPurpose(spendRequest.getPurpose());
             existingSpendRequest.setRequestedAmount(spendRequest.getRequestedAmount());
             existingSpendRequest.setEmployee(spendRequest.getEmployee());
@@ -87,5 +86,33 @@ public class SpendRequestService {
     public List<SpendRequest> getSpendRequestsBetween(LocalDate start, LocalDate end) {
 
         return spendRequestRepository.findByRequestDateBetweenOrderByRequestDateAsc(start, end);
+    }
+
+    public String updateSpendRequestStatus(UUID id, SpendStatus status) {
+
+        SpendRequest existingSpendRequest = getSpendRequestById(id);
+
+        if (existingSpendRequest == null) {
+            return "The spend request with that id does not exist";
+        }
+
+        SpendStatus current = existingSpendRequest.getStatus();
+        boolean allowed = false;
+
+        if (current == SpendStatus.SUBMITTED && (status == SpendStatus.REVIEWED || status == SpendStatus.REJECTED)) {
+            allowed = true;
+        }
+
+        if (current == SpendStatus.REVIEWED && (status == SpendStatus.APPROVED || status == SpendStatus.REJECTED)) {
+            allowed = true;
+        }
+
+        if (allowed == false) {
+            return "Cannot change status from " + current + " to " + status;
+        }
+
+        existingSpendRequest.setStatus(status);
+        spendRequestRepository.save(existingSpendRequest);
+        return "Spend request status updated successfully";
     }
 }

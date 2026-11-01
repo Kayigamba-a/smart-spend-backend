@@ -125,4 +125,22 @@ public class SpendRequestController {
             );
         }
     }
+
+    @PatchMapping("/{id}/status")
+    public ResponseEntity<String> updateSpendRequestStatus(
+            @PathVariable UUID id,
+            @RequestParam SpendStatus status) {
+
+        String message = spendRequestService.updateSpendRequestStatus(id, status);
+
+        if (message.startsWith("The spend request")) {
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+
+        if (message.startsWith("Cannot change")) {
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }
