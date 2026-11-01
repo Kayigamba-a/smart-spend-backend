@@ -1,4 +1,3 @@
-
 package auca.example.smartspend.controller;
 
 import java.util.List;
@@ -39,6 +38,14 @@ public class ExpenseTypeController {
             "Expense type saved successfully",
             HttpStatus.CREATED
         );
+    }
+
+    @GetMapping("/unused")
+    public ResponseEntity<List<ExpenseType>> getUnusedExpenseTypes() {
+
+        List<ExpenseType> expenseTypes = expenseTypeService.getUnusedExpenseTypes();
+
+        return new ResponseEntity<>(expenseTypes, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

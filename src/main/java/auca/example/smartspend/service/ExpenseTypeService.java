@@ -55,4 +55,9 @@ public class ExpenseTypeService {
 
         return false;
     }
+
+    public List<ExpenseType> getUnusedExpenseTypes() {
+
+        return expenseTypeRepository.findUnusedExpenseTypes();
+    }
 }
