@@ -49,6 +49,23 @@ public class EmployeeController {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
+    @GetMapping("/of-finance-officer/{financeOfficerId}")
+    public ResponseEntity<?> getEmployeesOfFinanceOfficer(
+            @PathVariable UUID financeOfficerId) {
+
+        List<Employee> employees =
+            employeeService.getEmployeesOfFinanceOfficer(financeOfficerId);
+
+        if (employees == null) {
+            return new ResponseEntity<>(
+                "The finance officer with that id does not exist",
+                HttpStatus.NOT_FOUND
+            );
+        }
+
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<?> getEmployeeById(@PathVariable UUID id) {
 

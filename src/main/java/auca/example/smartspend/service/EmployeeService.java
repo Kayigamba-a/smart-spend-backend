@@ -6,15 +6,21 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import auca.example.smartspend.model.Employee;
+import auca.example.smartspend.model.FinanceOfficer;
 import auca.example.smartspend.repository.EmployeeRepository;
+import auca.example.smartspend.repository.FinanceOfficerRepository;
 
 @Service
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
+    private final FinanceOfficerRepository financeOfficerRepository;
 
-    public EmployeeService(EmployeeRepository repository) {
+    public EmployeeService(
+            EmployeeRepository repository,
+            FinanceOfficerRepository financeOfficerRepository) {
         this.employeeRepository = repository;
+        this.financeOfficerRepository = financeOfficerRepository;
     }
 
     public List<Employee> getAllEmployees() {
@@ -61,5 +67,17 @@ public class EmployeeService {
     public List<Employee> getEmployeesByLastName(String lastName) {
 
         return employeeRepository.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName);
+    }
+
+    public List<Employee> getEmployeesOfFinanceOfficer(UUID financeOfficerId) {
+
+        FinanceOfficer financeOfficer =
+            financeOfficerRepository.findById(financeOfficerId).orElse(null);
+
+        if (financeOfficer == null) {
+            return null;
+        }
+
+        return employeeRepository.findByFinanceOfficerId(financeOfficerId);
     }
 }
