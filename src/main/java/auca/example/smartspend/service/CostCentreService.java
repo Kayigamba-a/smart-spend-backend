@@ -56,4 +56,9 @@ public class CostCentreService {
 
         return false;
     }
+
+    public List<CostCentre> getFreeCostCentres() {
+
+        return costCentreRepository.findFreeCostCentres();
+    }
 }

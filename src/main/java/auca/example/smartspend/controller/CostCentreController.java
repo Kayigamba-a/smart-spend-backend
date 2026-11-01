@@ -1,4 +1,3 @@
-
 package auca.example.smartspend.controller;
 
 import java.util.List;
@@ -39,6 +38,14 @@ public class CostCentreController {
             "Cost centre saved successfully",
             HttpStatus.CREATED
         );
+    }
+
+    @GetMapping("/free")
+    public ResponseEntity<List<CostCentre>> getFreeCostCentres() {
+
+        List<CostCentre> costCentres = costCentreService.getFreeCostCentres();
+
+        return new ResponseEntity<>(costCentres, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
