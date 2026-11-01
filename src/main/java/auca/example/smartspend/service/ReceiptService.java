@@ -48,4 +48,16 @@ public class ReceiptService {
 
         return receiptRepository.findByEmployeeStaffNumber(staffNumber);
     }
+
+    public String deleteReceipt(UUID id) {
+
+        Receipt receipt = receiptRepository.findById(id).orElse(null);
+
+        if (receipt == null) {
+            return "The receipt with that id does not exist";
+        }
+
+        receiptRepository.delete(receipt);
+        return "Receipt deleted successfully";
+    }
 }

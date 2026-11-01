@@ -8,15 +8,20 @@ import org.springframework.stereotype.Service;
 
 import auca.example.smartspend.model.SpendRequest;
 import auca.example.smartspend.model.SpendStatus;
+import auca.example.smartspend.repository.ReceiptRepository;
 import auca.example.smartspend.repository.SpendRequestRepository;
 
 @Service
 public class SpendRequestService {
 
     private final SpendRequestRepository spendRequestRepository;
+    private final ReceiptRepository receiptRepository;
 
-    public SpendRequestService(SpendRequestRepository repository) {
+    public SpendRequestService(
+            SpendRequestRepository repository,
+            ReceiptRepository receiptRepository) {
         this.spendRequestRepository = repository;
+        this.receiptRepository = receiptRepository;
     }
 
     public List<SpendRequest> getAllSpendRequests() {
@@ -66,16 +71,20 @@ public class SpendRequestService {
         return null;
     }
 
-    public boolean deleteSpendRequest(UUID id) {
+    public String deleteSpendRequest(UUID id) {
 
         SpendRequest spendRequest = getSpendRequestById(id);
 
-        if (spendRequest != null) {
-            spendRequestRepository.delete(spendRequest);
-            return true;
+        if (spendRequest == null) {
+            return "The spend request with that id does not exist";
         }
 
-        return false;
+        if (receiptRepository.existsBySpendRequest(spendRequest)) {
+            return "That spend request has receipts, delete them first";
+        }
+
+        spendRequestRepository.delete(spendRequest);
+        return "Spend request deleted successfully";
     }
 
     public List<SpendRequest> getSpendRequestsByStatus(SpendStatus status) {

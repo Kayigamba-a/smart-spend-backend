@@ -12,4 +12,6 @@ public interface ReceiptRepository extends JpaRepository<Receipt, UUID>{
     @Query("SELECT r FROM Receipt r WHERE r.spendRequest.employee.staffNumber = :staffNumber ORDER BY r.recordedDate DESC")
     List<Receipt> findByEmployeeStaffNumber(@Param("staffNumber") String staffNumber);
 
+    boolean existsBySpendRequest(SpendRequest spendRequest);
+
 }

@@ -46,4 +46,16 @@ public class ReceiptController {
 
         return new ResponseEntity<>(receipts, HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<String> deleteReceipt(@PathVariable UUID id) {
+
+        String message = receiptService.deleteReceipt(id);
+
+        if (message.startsWith("The receipt")) {
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }

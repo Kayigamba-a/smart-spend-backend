@@ -111,19 +111,17 @@ public class SpendRequestController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteSpendRequest(@PathVariable UUID id) {
 
-        boolean deleted = spendRequestService.deleteSpendRequest(id);
+        String message = spendRequestService.deleteSpendRequest(id);
 
-        if (deleted) {
-            return new ResponseEntity<>(
-                "Spend request deleted successfully",
-                HttpStatus.OK
-            );
-        } else {
-            return new ResponseEntity<>(
-                "The spend request with that id does not exist",
-                HttpStatus.NOT_FOUND
-            );
+        if (message.startsWith("The spend request")) {
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
         }
+
+        if (message.startsWith("That spend request")) {
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
     @PatchMapping("/{id}/status")
