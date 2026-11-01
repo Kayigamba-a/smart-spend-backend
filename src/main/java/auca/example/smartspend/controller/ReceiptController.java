@@ -1,5 +1,6 @@
 package auca.example.smartspend.controller;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
@@ -35,5 +36,14 @@ public class ReceiptController {
         }
 
         return new ResponseEntity<>(message, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/employee/{staffNumber}")
+    public ResponseEntity<List<Receipt>> getReceiptsByEmployee(
+            @PathVariable String staffNumber) {
+
+        List<Receipt> receipts = receiptService.getReceiptsByEmployee(staffNumber);
+
+        return new ResponseEntity<>(receipts, HttpStatus.OK);
     }
 }

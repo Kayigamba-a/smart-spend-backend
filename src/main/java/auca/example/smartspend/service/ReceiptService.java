@@ -1,6 +1,7 @@
 package auca.example.smartspend.service;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -41,5 +42,10 @@ public class ReceiptService {
         receipt.setSpendRequest(spendRequest);
         receiptRepository.save(receipt);
         return "Receipt saved successfully";
+    }
+
+    public List<Receipt> getReceiptsByEmployee(String staffNumber) {
+
+        return receiptRepository.findByEmployeeStaffNumber(staffNumber);
     }
 }
