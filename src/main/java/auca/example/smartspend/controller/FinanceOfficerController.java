@@ -127,4 +127,26 @@ public class FinanceOfficerController {
 
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+    @PatchMapping("/{financeOfficerId}/cost-centre")
+    public ResponseEntity<String> changeCostCentre(
+            @PathVariable UUID financeOfficerId,
+            @RequestParam int centreNumber) {
+
+        String message = financeOfficerService.changeCostCentre(financeOfficerId, centreNumber);
+
+        if (message.startsWith("The finance officer")) {
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+
+        if (message.startsWith("The cost centre")) {
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+
+        if (message.startsWith("That cost centre")) {
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }

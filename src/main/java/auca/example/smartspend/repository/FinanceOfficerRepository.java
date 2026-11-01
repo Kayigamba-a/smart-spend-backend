@@ -12,4 +12,6 @@ public interface FinanceOfficerRepository extends JpaRepository<FinanceOfficer, 
     @Query("SELECT f FROM FinanceOfficer f JOIN f.expenseTypes e WHERE LOWER(e.name) = LOWER(:name)")
     List<FinanceOfficer> findByExpenseTypeName(@Param("name") String name);
 
+    boolean existsByCostCentre(CostCentre costCentre);
+
 }
