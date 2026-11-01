@@ -1,4 +1,3 @@
-
 package auca.example.smartspend.service;
 
 import java.util.List;
@@ -57,5 +56,10 @@ public class EmployeeService {
         }
 
         return false;
+    }
+
+    public List<Employee> getEmployeesByLastName(String lastName) {
+
+        return employeeRepository.findByLastNameIgnoreCaseOrderByFirstNameAsc(lastName);
     }
 }

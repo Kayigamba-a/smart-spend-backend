@@ -1,4 +1,3 @@
-
 package auca.example.smartspend.controller;
 
 import java.util.List;
@@ -39,6 +38,15 @@ public class EmployeeController {
             "Employee saved successfully",
             HttpStatus.CREATED
         );
+    }
+
+    @GetMapping("/by-last-name")
+    public ResponseEntity<List<Employee>> getEmployeesByLastName(
+            @RequestParam String lastName) {
+
+        List<Employee> employees = employeeService.getEmployeesByLastName(lastName);
+
+        return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
