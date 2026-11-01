@@ -1,4 +1,3 @@
-
 package auca.example.smartspend.controller;
 
 import java.util.List;
@@ -40,6 +39,16 @@ public class FinanceOfficerController {
             "Finance officer saved successfully",
             HttpStatus.CREATED
         );
+    }
+
+    @GetMapping("/by-expense-type")
+    public ResponseEntity<List<FinanceOfficer>> getFinanceOfficersByExpenseType(
+            @RequestParam String name) {
+
+        List<FinanceOfficer> financeOfficers =
+            financeOfficerService.getFinanceOfficersByExpenseType(name);
+
+        return new ResponseEntity<>(financeOfficers, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")

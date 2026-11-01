@@ -1,4 +1,3 @@
-
 package auca.example.smartspend.service;
 
 import java.util.List;
@@ -58,5 +57,10 @@ public class FinanceOfficerService {
         }
 
         return false;
+    }
+
+    public List<FinanceOfficer> getFinanceOfficersByExpenseType(String name) {
+
+        return financeOfficerRepository.findByExpenseTypeName(name);
     }
 }
