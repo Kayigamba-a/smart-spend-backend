@@ -35,12 +35,17 @@ public class SpendRequestController {
     public ResponseEntity<String> saveSpendRequest(
             @RequestBody SpendRequest spendRequest) {
 
-        spendRequestService.saveSpendRequest(spendRequest);
+        String message = spendRequestService.saveSpendRequest(spendRequest);
 
-        return new ResponseEntity<>(
-            "Spend request saved successfully",
-            HttpStatus.CREATED
-        );
+        if (message.startsWith("Spend request date")) {
+            return new ResponseEntity<>(message, HttpStatus.BAD_REQUEST);
+        }
+
+        if (message.startsWith("Finance officer already")) {
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(message, HttpStatus.CREATED);
     }
 
     @GetMapping("/by-status")

@@ -12,4 +12,6 @@ public interface SpendRequestRepository extends JpaRepository<SpendRequest, UUID
 
     List<SpendRequest> findByRequestDateBetweenOrderByRequestDateAsc(LocalDate start, LocalDate end);
 
+    boolean existsByFinanceOfficerAndRequestDateAndStatusNot(FinanceOfficer financeOfficer, LocalDate requestDate, SpendStatus status);
+
 }

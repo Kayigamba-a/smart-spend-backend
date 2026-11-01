@@ -23,8 +23,25 @@ public class SpendRequestService {
         return spendRequestRepository.findAll();
     }
 
-    public SpendRequest saveSpendRequest(SpendRequest spendRequest) {
-        return spendRequestRepository.save(spendRequest);
+    public String saveSpendRequest(SpendRequest spendRequest) {
+
+        if (spendRequest.getRequestDate().isBefore(LocalDate.now())) {
+            return "Spend request date cannot be in the past";
+        }
+
+        boolean exists = spendRequestRepository.existsByFinanceOfficerAndRequestDateAndStatusNot(
+            spendRequest.getFinanceOfficer(),
+            spendRequest.getRequestDate(),
+            SpendStatus.REJECTED
+        );
+
+        if (exists) {
+            return "Finance officer already reviews a request on that date";
+        }
+
+        spendRequest.setStatus(SpendStatus.SUBMITTED);
+        spendRequestRepository.save(spendRequest);
+        return "Spend request saved successfully";
     }
 
     public SpendRequest getSpendRequestById(UUID id) {
