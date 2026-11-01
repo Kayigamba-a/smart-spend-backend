@@ -1,0 +1,61 @@
+
+package auca.example.smartspend.service;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+
+import auca.example.smartspend.model.Employee;
+import auca.example.smartspend.repository.EmployeeRepository;
+
+@Service
+public class EmployeeService {
+
+    private final EmployeeRepository employeeRepository;
+
+    public EmployeeService(EmployeeRepository repository) {
+        this.employeeRepository = repository;
+    }
+
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
+    }
+
+    public Employee saveEmployee(Employee employee) {
+        return employeeRepository.save(employee);
+    }
+
+    public Employee getEmployeeById(UUID id) {
+        return employeeRepository.findById(id).orElse(null);
+    }
+
+    public Employee updateEmployee(UUID id, Employee employee) {
+
+        Employee existingEmployee = getEmployeeById(id);
+
+        if (existingEmployee != null) {
+
+            existingEmployee.setFirstName(employee.getFirstName());
+            existingEmployee.setLastName(employee.getLastName());
+            existingEmployee.setStaffNumber(employee.getStaffNumber());
+            existingEmployee.setEmail(employee.getEmail());
+
+            return employeeRepository.save(existingEmployee);
+        }
+
+        return null;
+    }
+
+    public boolean deleteEmployee(UUID id) {
+
+        Employee employee = getEmployeeById(id);
+
+        if (employee != null) {
+            employeeRepository.delete(employee);
+            return true;
+        }
+
+        return false;
+    }
+}
