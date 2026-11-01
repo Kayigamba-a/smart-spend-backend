@@ -1,4 +1,3 @@
-
 package auca.example.smartspend.service;
 
 import java.util.List;
@@ -7,6 +6,7 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import auca.example.smartspend.model.SpendRequest;
+import auca.example.smartspend.model.SpendStatus;
 import auca.example.smartspend.repository.SpendRequestRepository;
 
 @Service
@@ -59,5 +59,10 @@ public class SpendRequestService {
         }
 
         return false;
+    }
+
+    public List<SpendRequest> getSpendRequestsByStatus(SpendStatus status) {
+
+        return spendRequestRepository.findByStatusOrderByRequestDateAsc(status);
     }
 }

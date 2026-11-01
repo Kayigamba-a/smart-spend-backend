@@ -1,4 +1,3 @@
-
 package auca.example.smartspend.controller;
 
 import java.util.List;
@@ -9,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import auca.example.smartspend.model.SpendRequest;
+import auca.example.smartspend.model.SpendStatus;
 import auca.example.smartspend.service.SpendRequestService;
 
 @RestController
@@ -40,6 +40,16 @@ public class SpendRequestController {
             "Spend request saved successfully",
             HttpStatus.CREATED
         );
+    }
+
+    @GetMapping("/by-status")
+    public ResponseEntity<List<SpendRequest>> getSpendRequestsByStatus(
+            @RequestParam SpendStatus status) {
+
+        List<SpendRequest> spendRequests =
+            spendRequestService.getSpendRequestsByStatus(status);
+
+        return new ResponseEntity<>(spendRequests, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
