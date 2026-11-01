@@ -105,4 +105,26 @@ public class FinanceOfficerController {
             );
         }
     }
+
+    @PutMapping("/{financeOfficerId}/expense-types/{expenseTypeId}")
+    public ResponseEntity<String> addExpenseType(
+            @PathVariable UUID financeOfficerId,
+            @PathVariable UUID expenseTypeId) {
+
+        String message = financeOfficerService.addExpenseType(financeOfficerId, expenseTypeId);
+
+        if (message.startsWith("The finance officer with")) {
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+
+        if (message.startsWith("That expense type")) {
+            return new ResponseEntity<>(message, HttpStatus.NOT_FOUND);
+        }
+
+        if (message.startsWith("The finance officer already")) {
+            return new ResponseEntity<>(message, HttpStatus.CONFLICT);
+        }
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }

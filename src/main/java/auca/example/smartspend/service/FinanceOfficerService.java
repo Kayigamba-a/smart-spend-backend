@@ -5,16 +5,22 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import auca.example.smartspend.model.ExpenseType;
 import auca.example.smartspend.model.FinanceOfficer;
+import auca.example.smartspend.repository.ExpenseTypeRepository;
 import auca.example.smartspend.repository.FinanceOfficerRepository;
 
 @Service
 public class FinanceOfficerService {
 
     private final FinanceOfficerRepository financeOfficerRepository;
+    private final ExpenseTypeRepository expenseTypeRepository;
 
-    public FinanceOfficerService(FinanceOfficerRepository repository) {
+    public FinanceOfficerService(
+            FinanceOfficerRepository repository,
+            ExpenseTypeRepository expenseTypeRepository) {
         this.financeOfficerRepository = repository;
+        this.expenseTypeRepository = expenseTypeRepository;
     }
 
     public List<FinanceOfficer> getAllFinanceOfficers() {
@@ -62,5 +68,30 @@ public class FinanceOfficerService {
     public List<FinanceOfficer> getFinanceOfficersByExpenseType(String name) {
 
         return financeOfficerRepository.findByExpenseTypeName(name);
+    }
+
+    public String addExpenseType(UUID financeOfficerId, UUID expenseTypeId) {
+
+        FinanceOfficer financeOfficer = getFinanceOfficerById(financeOfficerId);
+
+        if (financeOfficer == null) {
+            return "The finance officer with that id does not exist";
+        }
+
+        ExpenseType expenseType = expenseTypeRepository.findById(expenseTypeId).orElse(null);
+
+        if (expenseType == null) {
+            return "That expense type does not exist";
+        }
+
+        for (ExpenseType existingExpenseType : financeOfficer.getExpenseTypes()) {
+            if (existingExpenseType.getId().equals(expenseTypeId)) {
+                return "The finance officer already has that expense type";
+            }
+        }
+
+        financeOfficer.getExpenseTypes().add(expenseType);
+        financeOfficerRepository.save(financeOfficer);
+        return "Expense type added to the finance officer";
     }
 }
