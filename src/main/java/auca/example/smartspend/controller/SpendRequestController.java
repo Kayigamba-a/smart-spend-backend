@@ -150,4 +150,15 @@ public class SpendRequestController {
 
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
+
+    @PatchMapping("/cancel-day")
+    public ResponseEntity<String> cancelDay(
+            @RequestParam UUID financeOfficerId,
+            @RequestParam String date) {
+
+        LocalDate requestDate = LocalDate.parse(date);
+        String message = spendRequestService.cancelDay(financeOfficerId, requestDate);
+
+        return new ResponseEntity<>(message, HttpStatus.OK);
+    }
 }

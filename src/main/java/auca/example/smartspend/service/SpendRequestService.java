@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import auca.example.smartspend.model.SpendRequest;
 import auca.example.smartspend.model.SpendStatus;
@@ -128,5 +129,18 @@ public class SpendRequestService {
     public List<Object[]> getStatusStatistics() {
 
         return spendRequestRepository.countGroupedByStatus();
+    }
+
+    @Transactional
+    public String cancelDay(UUID financeOfficerId, LocalDate date) {
+
+        int changed = spendRequestRepository.cancelRequestsForAbsentOfficer(
+            financeOfficerId,
+            date,
+            SpendStatus.APPROVED,
+            SpendStatus.REJECTED
+        );
+
+        return changed + " spend requests cancelled";
     }
 }
